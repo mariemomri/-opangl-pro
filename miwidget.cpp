@@ -139,3 +139,21 @@ void miWidget::setScaleZ(float value)
     scaleZ = value;
     update();  // Mettre à jour le widget après chaque changement
 }
+
+void miWidget::setrotationX(float value)
+{
+    rotate_x = value;
+    update();  // Mettre à jour le widget après chaque changement
+}
+
+void miWidget::setrotationY(float value)
+{
+    rotate_y = value;
+    update();  // Mettre à jour le widget après chaque changement
+}
+
+void miWidget::setrotationZ(float value)
+{
+    rotate_z = value;
+    update();  // Mettre à jour le widget après chaque changement
+}
