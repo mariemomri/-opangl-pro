@@ -22,6 +22,11 @@ public:
     void setScaleY(float value);
     void setScaleZ(float value);
 
+    // Méthodes pour l'échelle
+    void setrotationX(float value);
+    void setrotationY(float value);
+    void setrotationZ(float value);
+
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
     void resizeGL(int w, int h) Q_DECL_OVERRIDE;
