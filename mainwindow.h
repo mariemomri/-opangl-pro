@@ -24,7 +24,7 @@ public:
     ~MainWindow();
 
 private:
-    double scaleX, scaleY, scaleZ;
+
 
 public slots:
     void updateCoordinates(double x, double y, double z); // Slot pour mettre à jour les coordonnées
@@ -56,8 +56,14 @@ private:
     // Variables pour stocker les coordonnées des sliders (rotation)
     double xCoordinate, yCoordinate, zCoordinate;
 
+    // Variables pour stocker les coordonnées de changement de du taille
+    double scaleX, scaleY, scaleZ;
+
     // Variables pour stocker les coordonnées de translation
     double xTranslation, yTranslation, zTranslation;
+
+    // Variables pour stocker les coordonnées de rotation
+    double xRotation, yRotation, zRotation;
 
     // Position initiale des sliders
     int initialSliderValue;
