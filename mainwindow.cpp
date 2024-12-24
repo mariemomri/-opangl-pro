@@ -15,7 +15,6 @@
 #include <QSqlError>
 
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -76,22 +75,29 @@ void MainWindow::updateCoordinates(double x, double y, double z)
 
 void MainWindow::on_rotationSliderX_actionTriggered(int action)
 {
-    // Mise à jour de la rotation X selon la valeur du slider
-    ui->widget->rotate_x = ui->rotationSliderX->value();
+    // // Mise à jour de la rotation X selon la valeur du slider
+    // ui->widget->rotate_x = ui->rotationSliderX->value();
+    // ui->widget->update(); // Mettre à jour le widget
+
+    // Mise à jour de la translation X selon la valeur du slider
+    xRotation = ui->rotationSliderX->value();
+    ui->widget->setrotationX(xRotation); // Mettre à jour la translation pour le widget
     ui->widget->update(); // Mettre à jour le widget
 }
 
 void MainWindow::on_rotationSliderY_actionTriggered(int action)
 {
-    // Mise à jour de la rotation Y selon la valeur du slider
-    ui->widget->rotate_y = ui->rotationSliderY->value();
+    // Mise à jour de la translation X selon la valeur du slider
+    yRotation = ui->rotationSliderY->value();
+    ui->widget->setrotationY(yRotation); // Mettre à jour la translation pour le widget
     ui->widget->update(); // Mettre à jour le widget
 }
 
 void MainWindow::on_rotationSliderZ_actionTriggered(int action)
 {
-    // Mise à jour de la rotation Z selon la valeur du slider
-    ui->widget->rotate_z = ui->rotationSliderZ->value();
+    // Mise à jour de la translation X selon la valeur du slider
+    zRotation = ui->rotationSliderZ->value();
+    ui->widget->setrotationZ(zRotation); // Mettre à jour la translation pour le widget
     ui->widget->update(); // Mettre à jour le widget
 }
 
@@ -125,7 +131,7 @@ void MainWindow::on_translationSliderZ_actionTriggered(int action)
 void MainWindow::on_scaleSliderX_actionTriggered(int action)
 {
     // Mise à jour de l'échelle X selon la valeur du slider
-    scaleX = ui->scaleSliderX->value() / 100.0f; // Convertir la valeur en facteur de mise à l'échelle
+    scaleX = ui->scaleSliderX->value()/5.0; // Convertir la valeur en facteur de mise à l'échelle
     ui->widget->setScaleX(scaleX); // Appliquer l'échelle au widget
     ui->widget->update(); // Mettre à jour le widget
 }
@@ -133,7 +139,7 @@ void MainWindow::on_scaleSliderX_actionTriggered(int action)
 void MainWindow::on_scaleSliderY_actionTriggered(int action)
 {
     // Mise à jour de l'échelle Y selon la valeur du slider
-    scaleY = ui->scaleSliderY->value() / 100.0f; // Convertir la valeur en facteur de mise à l'échelle
+    scaleY = ui->scaleSliderY->value()/5.0; // Convertir la valeur en facteur de mise à l'échelle
     ui->widget->setScaleY(scaleY); // Appliquer l'échelle au widget
     ui->widget->update(); // Mettre à jour le widget
 }
@@ -141,7 +147,7 @@ void MainWindow::on_scaleSliderY_actionTriggered(int action)
 void MainWindow::on_scaleSliderZ_actionTriggered(int action)
 {
     // Mise à jour de l'échelle Z selon la valeur du slider
-    scaleZ = ui->scaleSliderZ->value() / 100.0f; // Convertir la valeur en facteur de mise à l'échelle
+    scaleZ = ui->scaleSliderZ->value()/5.0; // Convertir la valeur en facteur de mise à l'échelle
     ui->widget->setScaleZ(scaleZ); // Appliquer l'échelle au widget
     ui->widget->update(); // Mettre à jour le widget
 }
@@ -155,14 +161,19 @@ void MainWindow::on_savebtn_clicked()
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 
     // URL corrigée du script PHP
-    QUrl url("http://localhost/webdb/openglpdo1.php"); // Assurez-vous que "localhost" pointe vers votre serveur WAMP
+    QUrl url("http://localhost/webdb/openglpdo3.php"); // Assurez-vous que "localhost" pointe vers votre serveur WAMP
 
     // Préparer les données à envoyer
     QUrlQuery params;
-    params.addQueryItem("x", QString::number(xTranslation));
-    params.addQueryItem("y", QString::number(yTranslation));
-    params.addQueryItem("z", QString::number(zTranslation));
-
+    params.addQueryItem("translationx", QString::number(xTranslation));
+    params.addQueryItem("translationy", QString::number(yTranslation));
+    params.addQueryItem("translationz", QString::number(zTranslation));
+    params.addQueryItem("rotationx", QString::number(xRotation));
+    params.addQueryItem("rotationy", QString::number(yRotation));
+    params.addQueryItem("rotationz", QString::number(zRotation));
+    params.addQueryItem("scalex", QString::number(scaleX));
+    params.addQueryItem("scaley", QString::number(scaleY));
+    params.addQueryItem("scalez", QString::number(scaleZ));
     // Préparer la requête
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
